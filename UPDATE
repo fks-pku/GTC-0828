@@ -1,0 +1,73 @@
+04/25/2016: GPU (Wenlu) unified kinetic electron routines with others, gaussian boundary (Sam), merged FRC (Calvin), rotation bug fix (Sam),
+boundary conidtion bug fix (Sam), OMP bug fix (Sam),geometry is configured at preprocess level (Calvin)
+
+01/08/2016: GPU (Wenlu, Peng), Boris push for Vlasov ions (Xishuo, Yong, Animesh), slowing-down distribution (Sam), and BC for 3D  up-down Asymmetric equibrium (Ihor).
+
+07/21/2015: 3D equilibrium (Ihor, Don), and some bugs fixed.
+
+02/14/2015: unified push and charge (Wenlu), FEM solver (Joey), FRC core & SOL (Daniel), FRC semi-spectrum solver (Ihor and Calvin), FRC wedge simulation (Calvin), Tearing mode (Dongjian and Wenlu), Fast electron(Wenlu).
+
+02/28/14: unified shift (Wenlu), FRC poisson & q (Ihor & Daniel), fully kinetic ion pushifk (Animesh, Jian), Near axis(Joey), density & temperature normalization roll back to on-axis value & displacement diagnostic (Zhixuan)
+
+07/04/13: Fully kinetic ion (Animesh); NL zonal field equations (Zhixuan); Pade approximation in Poisson equation (Ihor); electron push with island (Ge), density & temperature normalization (Huasen).
+
+01/24/13: Fixed bugs of 0725 version (all).
+
+07/25/12: Fully kinetic ion for RF (Animesh, Zhixuan), magnetic axis (Joey), magnetic island (Peng).
+
+04/03/12: Fixed bugs for experimental profile (Dan) and critical for ideal and kinetic BM (Ihor).
+
+02/14/12: Parallelization of mapping between magnetic coordinates and field aligned mesh (Dan).
+
+01/23/12: hyperviscosity added to electron continuity equation (Huasen, Ihor); Normalization of geometry input data (Dan); some bugs fixed.
+
+09/22/11: Choices of direction for B_toroidal and toroidal current using fielddir flag (Wenjun) and MPI optimization using MPI_alltoall (Joey).
+
+07/06/11: Nonlinear continuity equation, zonal current, and complete electron dynamics (Ihor, Wenjun, Huasen, Zhixuan); Makefile for USTC cluster (Wenlu); some bugs fixed.
+
+06/03/11: EM kinetic electrons (Ihor,Zhixuan); Alfven Continuum plot (Wenjun); Some bugs fixed.
+
+05/10/11: EM formulation for kinetic electron and EM field (delta psi) rolled back to v1204 of 2010 (Ihor); 4-point gyroaveraging in cylinder coordinates (upgraded from Cartesian coordiantes (Zhixuan); some bugs fixed. THe default option:
+ipade=1 (use pade approximation for Poisson)
+ilaplacian=1 (use FD Laplacian)
+fieldmodel=1 (analytic equilibrium accurate to 1st order in the difference between geometrical and magnetic angles)
+Equilibrium current and effective heat bath are turned off as the default
+
+03/04/11: Equilibrium current (Wenjun),new formulation of perturbed flux function (Ihor), the 3rd Poisson solver using Pade approximation and higher oder finite difference (Yong), OpenMP optimization in shift and improvement in iterative Poisson solver (Zhixuan), and some bugs fixed. New convention for case number:
+numereq=0: tokamak numerical equilibium
+        1-99: tokamak analytic equilibrium
+	101-199: cylinder
+	201-299: FRC
+	301-399: RFP 
+
+02/09/11: A new Laplacian operator (Yong), new formulation of perturbed flux fluction (Ihor), and PETSc updates (Wenjun).
+
+9/23/10: Zonal flow solver in general geometry, bugs fixed in restart and electron diagnosis (Yong,Ihor).
+
+5/14/10: A new filter option (nfilter>2 to pick only k_para<<k_perp) and independent calculation of gradient of phi_eff, a big bug of jmesh in pushfield.F90 (Huasen), and a bug in poloidal BC for charge density in poisson.F90 (Wenjun).
+
+4/14/10: A big bug in pushf.F90 corrected (Wenjun); RFP equilibrium added (Songfen); Smoothing of dynamical field quantities modified; Ideal MHD convention modified.
+
+3/22/10: All fields are smoothed to avoid numerical instabilities & fixed other bugs (Huasen et al).
+
+3/15/10: Cylindrical geometry using numereq>=50 (Zhixuan); E_r and toroidal rotation in numerical equilibrium & fluid equation (neoz=1 keeps E_r & rotation; 2 keeps E_r; 3 neither).
+
+2/22/10: complete fluid equation (Ihor); remove n=0 non-zonal flow harmonics (Yong); Some bug fixed.
+
+2/1/10: Zonal flow solvers in general geometry (Yong & Ihor); Complete electron continuity equation (Ihor, Guoya & Huasen), spline smoothing (Yong); Some bugs fixed. 
+
+12/16/09: rotation and radial electric field implemented using "neoz" as control (Ihor). Poloidal mode selection enabled using "nfilter" as control (Wenjun). Makefile and job script for hopper (Yong).
+
+11/1/09: some bugs fixed; fast ion and electron also have full-f capability.
+
+10/23/09: full-f working; some bugs fixed.
+
+10/18/09: some bugs fixed.
+
+10/15/09: major upgrades of GTC3 done (all). General geometry & profile, EM & MHD, third species, collisions all operational.
+
+9/24/09: loading with profile (Yong), antenna for TAE (Wenlu).
+
+9/16/09: e-e,e-i,i-i collisions added (Xiaotao).
+
+9/3/09: fluid simulation of TAE working (Wenlu).

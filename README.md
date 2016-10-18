@@ -1,3 +1,1 @@
-# GTC-0828
- 修改版本 FOR DKE
- 第二次修改部分
+The Gyrokinetic Toroidal Code (GTC) is a particle-in-cell simulation of plasma instabilities and turbulence in fusion devices.
