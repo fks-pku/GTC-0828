@@ -116,7 +116,7 @@ endif
 #ifdef _FRC
            CALL POISSON_FRC("ES-DKE")
 #else
-           CALL POISSON_SOLVER("ES-adiabatic")
+           CALL POISSON_SOLVER("ES-DKE")
 #endif
         else
 ! push fields of apara, fluidne
