@@ -122,10 +122,10 @@ endif
   if(fload>0)then
 !$omp parallel do private(i,j,ij,temp)
      do i=0,mpsi
-        temp=1.0+real(1-magnetic)*real(ilaplacian)*qelectron*qelectron*meshne(i)/(meshte(i)*ddum(i))
+        !temp=1.0+real(1-magnetic)*real(ilaplacian)*qelectron*qelectron*meshne(i)/(meshte(i)*ddum(i))
         do j=0,mtheta(i)
            ij=igrid(i)+j
-           dentmp(ij)=dentmp(ij)+qfast*densityf(1,ij)*meshnf(i)/temp
+           dentmp(ij)=dentmp(ij)+qfast*densityf(1,ij)*meshnf(i)!/temp
         enddo
      enddo
   endif
@@ -1062,7 +1062,7 @@ subroutine lap2petsc
            endif
 
            if (fload==0) then
-             ddum(i)=qion*qion*meshni(i)*rho0*rho0/meshti(i)+diagonal(i)
+             ddum(i)=qion*qion*meshni(i)*rho0*rho0/meshti(i)!+diagonal(i)
            else
              ddum(i)=qion*qion*(meshni(i)+meshnf(i)*afast/aion)*rho0*rho0/meshti(i)+diagonal(i)
            endif
