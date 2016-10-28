@@ -829,7 +829,8 @@ subroutine analyticeq
   endif
 ! main ion density assuming charge neutrality q_e*n_e+q_i*n_i+q_f*n_f(fe)=0
   if(feload>0)then
-    nipp=(nepp*abs(qelectron)-nfepp*qfaste)/qion
+    !nipp=(nepp*abs(qelectron)-nfepp*qfaste)/qion
+    nipp=(nfepp*abs(qfaste))/qion
   elseif(feload==0 .and. fload>0)then
     nipp=(nepp*abs(qelectron)-nfpp*qfast)/qion
   else
