@@ -1071,7 +1071,7 @@ subroutine lap2petsc
               do k=1,nindex0(ij)
                  ring0(k,ij)=0.0_wp-ring0(k,ij)*ddum(i)*rhom(ij)*rhom(ij)
               enddo
-              ring0(6,ij)=diagonal(i)+ring0(6,ij)
+              ring0(6,ij)=0.0*diagonal(i)+ring0(6,ij)
            enddo
         enddo
       endif
