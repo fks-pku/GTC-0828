@@ -1,0 +1,187 @@
+&domain_parameters
+  toroidaln=0               ! >1: simulate partial torus, 2pi/toroidaln
+ /
+
+&input_parameters
+
+! control parameters
+  irun=1 ! 0 for initial run, any non-zero value for restart
+  mstep=500	    ! # of ion and field time steps
+  msnap=1	    ! # of snapshots and restarts
+  ndiag=10	  	    ! do diagnosis when mod(istep,ndiag)=0
+  nonlinear=0		    ! 1: nonlinear run; 
+                            ! 0: linear run
+  nfilter=0                 ! 0: keep all modes; 
+                            ! 1: select n-mode in setup.F90; 
+                            ! 2: select n & m mode;
+                            ! >2: select n & m and k_para<<k_perp 
+  tstep=0.02	    ! time step size, unit=R_0/c_s (c_s^2=T_e/m_i: main ion species)
+  paranl=0.0		    ! 0: no parallel nonlinearity;
+                            ! 1: keep parallel nonlinearity
+  track_particles=0	    ! 0: no tracking;
+                            ! 1: track particles 
+  ndata3D=0		    ! 0: no 3D data;
+                            ! 1: write out 3D field data 
+  magnetic=0		    ! 0: electrostatic;
+                            ! 1: electromagnetic
+  nbound=5		    ! # of radial subjected to boundary condition
+                            ! >99: gaussian boundary. magnitude is halved at (nbound-101)/4
+  nboundR=0                 ! 0: uses only nbound
+  ismooth=1		    ! number of smooth cycles (default: 1)
+                            ! >99: gaussian boundary on right side with a different number of points than the left side 
+  numereq=0		    ! 1: numerical equilibrium;
+                 	    ! 0: choice of analytic equilibrium
+
+! diagnostics and filtering specifics
+  n_modes= 6 7 8 9 10 11 12 13 ! for frc case, use single n for now
+  m_modes= 12 14 16 18 20 22 24 26 ! 
+  fem=0			    ! finite element solver (default: 0)
+  eta=0.0                   ! resistivity in tearing mode simulation (0.0 if hybrid model used; 0.000004)
+
+! field grids
+  iflux=50
+  mpsi=100 		! # of radial grid points
+  mthetamax=392		! # poloidal grid points (in fieldline following coordinate)
+  mtoroidal=64	! # of toroidal grids=MPI DD, 64 needed for ITG linear dispersion
+  psi0=0.02		! inner boundary, psi_inner/psiw
+  psi1=0.88	! outer boundary, psi_outer/psiw
+  neop=16		! # of radial grid for collision
+  neot=16	        ! # of poloidal grid for collision (in magnetic coordiante)
+  neoz=3		! # of toroidal grid for collision
+                            ! 3: w/o rotation & E_r
+		
+! thermal (main) ion
+  micell=20		    ! particle per cell for ion
+  aion=1.0		    ! ion mass, unit=proton mass
+  qion=1.0		    ! ion charge, unit=proton charge
+  ngyroi=4		    ! N-point gyro-averaging, N=1, 4, or 8
+  iload=1		    ! 0: ideal MHD; 
+                            ! 1: uniform marker & MHD, 
+                            ! >1: non-uniform marker & MHD
+  icoll=0		    ! 0: no collisions; 
+                            ! >0: collisions when mod(istep,ndiag)=0
+
+! fast ion
+  mfcell=1		    ! particle per cell for fast ion
+  afast=1.0     	    ! fast ion mass, unit=proton mass
+  qfast=1.0		    ! fast ion charge, unit=proton charge
+  ngyrof=1		    ! N-point gyro-averaging, N=1, 4, or 8
+  fload=0		    ! 0: no fast ion;
+                            ! 1: uniform marker temperature;
+                            ! 2: non-uniform marker
+                            ! 11: slowing down distribution; uniform marker temperature
+                        
+
+! fast electron
+  mfecell=20               ! particle per cell for fast electron
+  afaste=5.44618e-4         ! fast electron mass, uint=proton mass
+  qfaste=-1.0               ! fast electron charge, uint=proton charge
+  ngyrofe=1                 ! N-point gyro-averaging,default=1 for drift kinetic
+  ncyclefe=20               ! # of fast electron subcycle
+  fetrap=2                  ! 1: load trapped fast electrons;
+                            ! 2: load all fast electrons;
+  feload=1               ! 1: uniform marker temperature;
+                            ! 2: non-uniform marker
+
+! electron
+  mecell=20		    ! particle per cell for electron
+  nhybrid=0		    ! number of iterations in hybrid electron model, 0: electrons are fluid
+  ncyclee=20		    ! # of electron subcycle
+  qelectron=-1.0 	    ! ion charge, unit=proton charge
+  aelectron=5.44618e-4	    ! electron mass, unit=proton mass
+  eload=0		    ! 1: uniform marker temperature, 
+                            ! >1: non-uniform marker
+  etrap=2                   ! 1: load trapped electrons; 
+                            ! 2: load all electrons
+  ecoll=0		    ! 0: no collisions; 
+                            ! >0: collisions when mod(istep,ndiag)=0
+
+!Newly added parameters
+  ilaplacian=1   
+  eqcurrent=0   	    ! eqcurrent=0: drop curl B terms; 
+                            ! eqcurrent=1: keep curl B terms
+  fieldmodel=1  	    ! Analytic eq field model: 0: s-alpha like (cyclone) model;
+                            ! 1: first order (in r/R_0) model with parallel current
+  bcond=0       	    ! 0: fixed zero boundary; 
+                            ! 1: linear inner boundary in r 
+  fielddir=0    	    ! Analytic equilibrium magnetic field (B) and plasma current (I) dir
+			    ! 0: out out; 1: in out; 2: in in; 3: out in;
+  hypr1=0.0		    ! Parallel hyperviscosity in el. continuity eq. for electromagnetic simulation
+  hypr2=0.0     	    ! Perpendicular hyperviscosity in el. continuity eq. for electromagnetic simulation
+  antenna=0                 ! 0: no antenna
+                            ! 1: antenna with structure = cos(m(1)*theta-n(1)*zeta)
+  omega_antenna=0.001       ! antenna frequency 
+  izonal=0		    ! 0: no zonal flow; 1: general geometry zonal solver; 2: simplified zonal solver
+
+  irestore=0
+  island=0
+! slowing down distribution parameters
+   sd_v0=0.00299123                   !birth velocity
+   sd_vc=1.07!*0.00299123             !critical velocity
+   sd_l0=0.5                          !control for injection angle
+   sd_widthInv=0                         ! anidotropic distribution width; 0 for isotropic limit
+
+  inorm=1
+! physical unit for equilibrium
+  r0=83.5!93.2               ! major radius, unit=cm
+  b0=20125.40!19100.0            ! on-axis magnetic field, unit=gauss
+  etemp0=2223!2500.0         ! on-axis electron temperature, unit=ev
+  eden0=1.1375e13!0.5e14          ! on-axis electron number density, unit=1/cm^3
+ /
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+&equilibrium_parameters
+
+! example numerical/analytical equilibrium using variables from numereq=1 
+  
+psiw_analytic= 3.75e-2         ! poloidal flux at wall
+ped_analytic=  3.75e-2       ! poloidal flux at separatrix
+
+! q and zeff profile is parabolic: q=q1+q2*psi/psiw+q3*(psi/psiw)^2
+q_analytic=   1.475  1.1 1.0  !
+ze_analytic=  1.0  0.0  0.0   !
+er_analytic=  0.0  0.0  0.0   !
+                             
+itemp0_analytic=  1.0         ! on-axis thermal ion temperature, unit=T_e0
+ftemp0_analytic=  2.0         ! on-axis fast ion temperature, unit=T_e0
+fden0_analytic=   1.0e-5      ! on-axis fast ion density, unit=n_e0
+fetemp0_analytic= 1.0         ! on-axis fast electron temperature, unit=T_e0
+feden0_analytic=  1.0e-5      ! on-axis fast electron density, unit=n_e0
+
+
+! density and temperature profiles are hyperbolic: ne=1.0+ne1*(tanh(ne2-(psi/psiw)/ne3)-1.0)
+ne_analytic=  0.205 0.30 0.4! Cyclone base case, ni determined by quasi-neutrality
+te_analytic=  0.415  0.18 0.4! 
+ti_analytic=  0.415  0.18 0.4!
+tf_analytic=  0.415  0.18 0.4  ! fast ion temperature profile
+nf_analytic=  0.205  0.30 0.4  ! fast ion density profile
+tfe_analytic= 0.415 0.18  0.4  ! fast electron density profile
+nfe_analytic= 0.205  0.30 0.4  ! fast electron density profile
+
+/
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! GTC unit: R_0=1, Omega_proton=1, B_0=1, m_p=1, e=1.
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! IMPORTANT: make sure that multiple OpenMP threads produce identical output in 
+! gtc.out as with a single Openmp thread (up to 6 digits in single precision).
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! repeatibility in linear runs:
+! 1) Random # generator in loading is the only source for different output in gtc.out.
+! 2) Particle decomposition # leads to difference in ~3 digits due to random # generator.
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Non-perturbative (full-f) simulation steps:
+! 1) Initial linear run for a few bounce times with irun=0, nonlinear=0.0, iload>99
+! 2) Continue linear run for a few bounce times with irun=1
+! 3) Continue nonlinear run with nonlinear=1.0 and reduce tstep
+! 4) If needed, continue nonlienar run with irun>9
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
