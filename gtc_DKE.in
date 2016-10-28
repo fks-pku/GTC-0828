@@ -147,7 +147,7 @@ itemp0_analytic=  1.0         ! on-axis thermal ion temperature, unit=T_e0
 ftemp0_analytic=  2.0         ! on-axis fast ion temperature, unit=T_e0
 fden0_analytic=   1.0e-5      ! on-axis fast ion density, unit=n_e0
 fetemp0_analytic= 1.0         ! on-axis fast electron temperature, unit=T_e0
-feden0_analytic=  1.0e-5      ! on-axis fast electron density, unit=n_e0
+feden0_analytic=  1.0      ! on-axis fast electron density, unit=n_e0
 
 
 ! density and temperature profiles are hyperbolic: ne=1.0+ne1*(tanh(ne2-(psi/psiw)/ne3)-1.0)
